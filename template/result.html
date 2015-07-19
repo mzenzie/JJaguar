@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+        <link rel = "stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <title>Programming Languages</title>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link href="/static/css/stylesheet.css" rel="stylesheet" />
+	
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+	
+	<script>
+	    var counter = 1;
+	    var limit = 3;
+	    function addInput(divName){
+		if (counter == limit)  {
+		    alert("You have reached the limit of adding " + counter + " inputs");
+		}
+		else {
+		    var newdiv = document.createElement('div');
+		    newdiv.innerHTML = "Entry " + (counter + 1) + " <br><input type='text' name='myInputs[]'>";
+		    document.getElementById(divName).appendChild(newdiv);
+		    counter++;
+		}
+	    }
+	</script>
+    
+    </head>
+<body>
+
+<div id="wrapper">
+
+<!-- Sidebar -->
+   <div id="sidebar-wrapper">
+       <nav id="spy">
+           <ul class="sidebar-nav nav">
+               <br/><br/>
+               <li>
+                   <a href="/home/" data-scroll>
+                       <span class="fa fa-anchor solo">Home</span>
+                   </a>
+               </li>
+               <li>
+                   <a href="/learn/" data-scroll>
+                       <span class="fa fa-anchor solo">Learn a New Language</span>
+                   </a>
+               </li>
+               <li>
+                   <a href="/account/" data-scroll>
+                       <span class="fa fa-user solo">Account Information</span>
+                   </a>
+               </li>
+		<li id="primary_nav_wrap" id="wrap">
+                   <a href="/definitions/" data-scroll>
+                       <span class="fa fa-user solo">Definitions</span>
+                   </a>
+               </li>
+	       <li >
+		    <a href= "/auth/logout/" data-scroll>
+			<span class = 'fa fa-user solo'> Logout {{user}}</span>
+		    </a>
+	       </li>
+           </ul>
+       </nav>
+   </div>
+   
+   <!-- Page content -->
+    <div id="page-content-wrapper">
+        <div class="page-content inset" data-spy="scroll" data-target="#spy">
+            <div class="row">
+                <div class="jumbotron text-center" >
+		    <h3> We predict that you would like: </h3>
+		     {% if result == {} %}
+			<p> There currently have no languages that meet your requirements. </p>
+		    {% else %}
+			{% for i in range(0, len(result)) %}
+			    <p> <b> {{result[i][0].upper()}} </b> with a relevance of <b> {{ round(result[i][1]*100, 2)}} % </b> to your given criteria  </p>
+			{% end %}
+		    {% end %}
+		</div>    
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+        <link rel = "stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <title>Programming Languages</title>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link href="/static/css/stylesheet.css" rel="stylesheet" />
+</head>
+<body>
+    <hr/>
+    <div class = "container login">
+    <h1>New User? Please Register Below</h1>
+    </div>
+    <br/>
+    <div class = "jumbotron container login">
+    <form action = "/register/" method = "post" id = "login_form">
+    <fieldset>
+	<label for = "username">Username </label>
+	<input class = "text-input" id = "username" placeholder = "Enter in your username" name = "username" type = "text" value = ""  required>
+    </fieldset>
+    
+    <fieldset>
+	<label for = "password">Password </label>
+	<input class = "text-input" id = "password" name = "password" type = "password" placeholder = "Enter in your password" value = "" required>
+    </fieldset>
+    
+    <div id = "form_btn">
+	<p></p>
+	<input id = "signin-btn" class = "btn btn-blue" type = "submit" value = "Sign Up" tabindex = "3">
+    <div>
+    </form>
+    </div>
+    <br/>
+    <br/>
+
+</body>
+
+</html>

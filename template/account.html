@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
+        <link rel = "stylesheet" href = "http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <title>Programming Languages</title>
+        <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+        <link href="/static/css/stylesheet.css" rel="stylesheet" />
+	
+	<script>
+	    var counter = 1;
+	    var limit = 3;
+	    function addInput(divName){
+		if (counter == limit)  {
+		    alert("You have reached the limit of adding " + counter + " inputs");
+		}
+		else {
+		    var newdiv = document.createElement('div');
+		    newdiv.innerHTML =  "<input type='text' name='bad_lang" + counter + "'>";
+		    document.getElementById(divName).appendChild(newdiv);
+		    counter++;
+		}
+	    }
+	</script>
+
+	<script>
+	    var arr = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	    function outputUpdate(vol, count, slide_name) {
+		arr[count] = vol + '-' + slide_name
+		document.getElementById('rates').value = arr;
+	    }
+	</script>
+	
+    </head>
+<body>
+
+<div id="wrapper">
+
+<!-- Sidebar -->
+   <div id="sidebar-wrapper">
+       <nav id="spy">
+           <ul class="sidebar-nav nav">
+               <br/><br/>
+               <li>
+                   <a href="/home/" data-scroll>
+                       <span class="fa fa-anchor solo">Home</span>
+                   </a>
+               </li>
+               <li>
+                   <a href="/learn/" data-scroll>
+                       <span class="fa fa-anchor solo">Learn a New Language</span>
+                   </a>
+               </li>
+               <li>
+                   <a href="/account/" data-scroll>
+                       <span class="fa fa-user solo">Account Information</span>
+                   </a>
+               </li>
+		<li id="primary_nav_wrap" id="wrap">
+                   <a href="/definitions/" data-scroll>
+                       <span class="fa fa-user solo">Definitions</span>
+                   </a>
+               </li>
+           </ul>
+       </nav>
+   </div>
+   
+   <!-- Page content -->
+    <div id="page-content-wrapper">
+        <div class="page-content inset" data-spy="scroll" data-target="#spy">
+            <div class="row">
+                <div class="jumbotron text-center" >
+		    <form method="POST" class="input" action="/account/">
+		    <fieldset>
+
+		    <header><h3><b>Username: {{ user }} <b/></h3></header>
+		    <p>Here you can view all of your account information<p>
+		    <br/>
+		    <p><b>Please rate how proficient you are in each of these languages (0 for beginner, 10 for expert)</b></p>
+		    <div class = "container">
+			<table class = "table">
+			    <tbody>
+				{% for i in range(0, len(languages)) %}
+				    <tr>
+					<td>
+					    <p id = "language">{{ str(languages[i][0]) }}</p>
+					</td>
+					<td>
+					    <input type="range" min = 1 max = 10 value = {{ str(languages[i][1]) }} step = 1 id = "slider" oninput = "outputUpdate(value, {{str(i)}}, '{{languages[i][0]}}' )" list = "volsettings">
+					    <datalist id = "volsettings">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+					    </datalist>
+					</td>
+				    </tr> 
+				{% end %}
+			    </tbody>
+			</table>
+		    </div><!--container-->
+		    
+		    <div>
+
+			{% if not new %}
+			    <p><b>Your most recent recommendations for a new Programming Language were:</b></p>
+			    <div class="container">
+			        {% for i in range(0, len(old_recs)) %}
+				    <p><b>{{ old_recs[i][0].upper() }}</b> with a relevance of <b>{{ round(old_recs[i][1]*100, 2) }}%</b> to your given criteria </p>
+			        {% end %}
+			    </div>
+		    
+			    <br/><br/><p><b>Here are the languages that you do not have interest in: </b></p>
+			    <div class = "container">
+				<ul>
+				    {% for ex in exceptions %}
+					<li>
+					{{ ex }}
+					<button id = "x" name = "remove" value = "{{ ex }}">&#x2717;</button>
+					</li>
+				    {% end %}
+				</ul>
+				<script>
+				var val
+				$("ul").on("click", "button", function(e) {
+				    e.preventDefault();
+				    prev_val = document.getElementById('hiding').value
+				    val = $(this).parent()
+				    document.getElementById('hiding').value = prev_val + ' ' + this.value;
+				    $(this).parent().remove();
+				});
+				
+				</script>
+			    </div>
+			    
+
+			{% end %}
+
+		    </div>
+		    
+			<p>Add any languages that you do no have interest in:</p>
+			<div id="dynamicInput">
+			    <input type="text" name="bad_lang0">
+			</div>
+			<input type = "hidden" id = 'hiding' name = 'hiding'>
+			<input type = "hidden" id = 'rates' name = 'rates' value = ''>
+			<input class = 'submit' type="submit" value="Submit">
+			<input class ='add_input' type="button" value="Add another text input" onClick="addInput('dynamicInput');">
+		    </fieldset>
+		    </form>
+		</div><!--jumbotron-->
+	    </div><!--row-->
+	</div><!--page content-->
+    </div><!--page content wrapper-->
+</div> <!--wrapper-->
+</body>
+
+</html>
